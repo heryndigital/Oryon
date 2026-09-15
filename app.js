@@ -685,22 +685,39 @@ document.getElementById('eDeleteBtn').onclick = async () => {
 };
 
 // ---- Init (waits for Firebase Auth to resolve) ----
+function showFatalError(msg) {
+  if (msg) document.getElementById('authFatalMsg').textContent = msg;
+  document.getElementById('authFatalError').style.display = 'flex';
+}
+document.getElementById('authFatalSignupBtn').onclick = async () => {
+  await signOut(auth);
+  window.location.href = '/signup.html';
+};
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) { window.location.href = '/login.html'; return; }
 
-  const userSnap = await getDoc(doc(db, 'users', user.uid));
-  if (!userSnap.exists()) { window.location.href = '/login.html'; return; }
-  const userData = userSnap.data();
-  tenantId = userData.tenantId;
+  try {
+    const userSnap = await getDoc(doc(db, 'users', user.uid));
+    if (!userSnap.exists()) {
+      showFatalError('Esse login existe no Firebase, mas não tem uma agência (workspace) associada a ele — geralmente acontece quando o usuário foi criado direto no console do Firebase em vez de pela tela de cadastro do Oryon.');
+      return;
+    }
+    const userData = userSnap.data();
+    tenantId = userData.tenantId;
 
-  const tenantSnap = await getDoc(doc(db, 'tenants', tenantId));
-  const tenantData = tenantSnap.exists() ? tenantSnap.data() : { name: '—', plan: 'starter' };
+    const tenantSnap = await getDoc(doc(db, 'tenants', tenantId));
+    const tenantData = tenantSnap.exists() ? tenantSnap.data() : { name: '—', plan: 'starter' };
 
-  document.getElementById('tenantName').textContent = tenantData.name;
-  document.getElementById('userName').textContent = (userData.name || '').split(' ')[0];
-  document.getElementById('planLabel').textContent = PLAN_LABELS[tenantData.plan] || tenantData.plan;
+    document.getElementById('tenantName').textContent = tenantData.name;
+    document.getElementById('userName').textContent = (userData.name || '').split(' ')[0];
+    document.getElementById('planLabel').textContent = PLAN_LABELS[tenantData.plan] || tenantData.plan;
 
-  await loadAll();
-  await loadSettings();
-  switchView('dashboard');
+    await loadAll();
+    await loadSettings();
+    switchView('dashboard');
+  } catch (err) {
+    console.error('Oryon init error:', err);
+    showFatalError('Deu erro ao carregar os dados da sua agência (' + (err.code || err.message || 'erro desconhecido') + '). Confira se as regras do Firestore foram publicadas — veja README-DEPLOY.md.');
+  }
 });

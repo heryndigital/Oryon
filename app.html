@@ -9,6 +9,19 @@
 </head>
 <body class="app-body">
 
+<div class="auth-page" id="authFatalError" style="display:none; position:fixed; inset:0; z-index:200; background:var(--bg);">
+  <div class="auth-card">
+    <a class="brand-mark" href="/">
+      <img src="/assets/logo.svg" alt="Oryon">
+      <span>ORYON</span>
+    </a>
+    <h1>Não achamos sua agência</h1>
+    <p class="sub" id="authFatalMsg">Esse login existe no Firebase, mas não tem uma agência (workspace) associada a ele — geralmente acontece quando o usuário foi criado direto no console do Firebase em vez de pela tela de cadastro do Oryon.</p>
+    <button class="btn-primary btn-block" id="authFatalSignupBtn" type="button">Sair e criar conta pelo cadastro</button>
+    <div class="auth-switch">Já tem um workspace com outro login? <a href="/login.html">Voltar pro login</a></div>
+  </div>
+</div>
+
 <div class="sidebar">
   <div class="brand">
     <img src="/assets/logo.svg" alt="Oryon">
