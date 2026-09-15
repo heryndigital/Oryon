@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oryon</title>
+<link rel="icon" href="/assets/icon.svg">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="app-body">
+
+<div class="sidebar">
+  <div class="brand">
+    <img src="/assets/logo.svg" alt="Oryon">
+    <span>ORYON<small id="tenantName">carregando...</small></span>
+  </div>
+  <div class="nav-section-label">Principal</div>
+  <div class="nav" id="nav">
+    <div class="nav-item" data-view="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" data-view="clients">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Clientes
+    </div>
+    <div class="nav-item" data-view="contracts">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Contratos
+    </div>
+    <div class="nav-item" data-view="finance">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Financeiro
+    </div>
+    <div class="nav-item" data-view="pipeline">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Captação &amp; CRM
+    </div>
+    <div class="nav-item" data-view="events">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Agendamentos
+    </div>
+  </div>
+  <div class="nav-section-label">Conta</div>
+  <div class="nav">
+    <div class="nav-item" data-view="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Configurações
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema claro/escuro">
+      <span class="theme-icon theme-icon-dark">☀</span>
+      <span class="theme-icon theme-icon-light">☾</span>
+      <span id="themeToggleLabel">Modo claro</span>
+    </button>
+    <button class="logout-btn" id="logoutBtn" type="button">Sair (<span id="userName"></span>)</button>
+    <div class="sidebar-tag">Plano: <b id="planLabel">–</b></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Dashboard -->
+  <div class="view" id="view-dashboard">
+    <div class="topbar"><div><h1>Dashboard</h1><div class="subtitle">Visão geral da operação da sua agência.</div></div></div>
+    <div style="padding:24px;">
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="label">Clientes ativos</div><div class="value" id="kpiClientes">–</div><div class="sub" id="kpiClientesSub"></div></div>
+        <div class="kpi-card"><div class="label">MRR (contratos ativos)</div><div class="value accent" id="kpiMrr">–</div></div>
+        <div class="kpi-card"><div class="label">Contratos vencendo (30d)</div><div class="value" id="kpiContratos">–</div></div>
+        <div class="kpi-card"><div class="label">Pipeline em aberto</div><div class="value" id="kpiPipeline">–</div><div class="sub" id="kpiPipelineSub"></div></div>
+        <div class="kpi-card"><div class="label">A receber (pendente)</div><div class="value" id="kpiPendente">–</div></div>
+        <div class="kpi-card"><div class="label">Atrasado</div><div class="value" id="kpiAtrasado" style="color:var(--danger);">–</div></div>
+      </div>
+      <div class="panel-grid">
+        <div class="panel-box">
+          <h3>Contratos vencendo nos próximos 30 dias</h3>
+          <div id="dashContratos"></div>
+        </div>
+        <div class="panel-box">
+          <h3>Próximos agendamentos</h3>
+          <div id="dashEventos"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clients -->
+  <div class="view" id="view-clients">
+    <div class="topbar">
+      <div><h1>Clientes</h1><div class="subtitle">Ficha 360° de cada cliente ativo na agência.</div></div>
+      <div class="actions"><button class="btn-primary" id="newClientBtn">+ Novo cliente</button></div>
+    </div>
+    <div style="padding:24px;">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Nome</th><th>Status</th><th>Segmento</th><th>Responsável</th><th>Contato</th><th>Desde</th></tr></thead>
+          <tbody id="clientsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contracts -->
+  <div class="view" id="view-contracts">
+    <div class="topbar">
+      <div><h1>Contratos</h1><div class="subtitle">Vigência, valor mensal e renovação de cada contrato.</div></div>
+      <div class="actions"><button class="btn-primary" id="newContractBtn">+ Novo contrato</button></div>
+    </div>
+    <div style="padding:24px;">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Cliente</th><th>Valor/mês</th><th>Início</th><th>Vigência até</th><th>Renovação auto</th><th>Status</th></tr></thead>
+          <tbody id="contractsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Finance -->
+  <div class="view" id="view-finance">
+    <div class="topbar">
+      <div><h1>Financeiro</h1><div class="subtitle">Cobranças, pendências e inadimplência.</div></div>
+      <div class="actions"><button class="btn-primary" id="newFinanceBtn">+ Nova cobrança</button></div>
+    </div>
+    <div style="padding:24px;">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Descrição</th><th>Cliente</th><th>Valor</th><th>Vencimento</th><th>Status</th></tr></thead>
+          <tbody id="financeTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline -->
+  <div class="view" id="view-pipeline">
+    <div class="topbar">
+      <div><h1>Captação &amp; CRM</h1><div class="subtitle">Pipeline visual do primeiro contato ao fechamento.</div></div>
+      <div class="actions"><button class="btn-primary" id="newProspectBtn">+ Novo prospect</button></div>
+    </div>
+    <div style="padding:24px;">
+      <div class="board" id="pipelineBoard"></div>
+    </div>
+  </div>
+
+  <!-- Events -->
+  <div class="view" id="view-events">
+    <div class="topbar">
+      <div><h1>Agendamentos</h1><div class="subtitle">Compromissos e calls organizados por data.</div></div>
+      <div class="actions"><button class="btn-primary" id="newEventBtn">+ Novo agendamento</button></div>
+    </div>
+    <div style="padding:24px;">
+      <div class="panel-box" id="eventsList"></div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="view" id="view-settings">
+    <div class="topbar">
+      <div><h1>Configurações</h1><div class="subtitle">Cobrança via Pix, mensagem de WhatsApp e integração com o Google Agenda.</div></div>
+    </div>
+    <div style="padding:24px; max-width:640px;">
+      <div class="panel-box" style="margin-bottom:16px;">
+        <h3>Cobrança via Pix</h3>
+        <div class="field"><label>Chave Pix</label><input id="setPixKey" placeholder="CPF, CNPJ, email, telefone ou chave aleatória"></div>
+        <div class="row2">
+          <div class="field"><label>Nome do recebedor (máx. 25 caracteres)</label><input id="setPixName" maxlength="25"></div>
+          <div class="field"><label>Cidade (máx. 15 caracteres)</label><input id="setPixCity" maxlength="15"></div>
+        </div>
+      </div>
+      <div class="panel-box" style="margin-bottom:16px;">
+        <h3>Mensagem padrão de cobrança (WhatsApp)</h3>
+        <div class="field">
+          <textarea id="setWhatsTemplate" rows="6"></textarea>
+        </div>
+        <div style="color:var(--muted); font-size:12px;">Placeholders disponíveis: <code>{cliente}</code>, <code>{valor}</code>, <code>{vencimento}</code>, <code>{pix}</code></div>
+      </div>
+      <div class="panel-box" style="margin-bottom:16px;">
+        <h3>Google Agenda</h3>
+        <div class="field">
+          <label>URL do Web App (Apps Script)</label>
+          <input id="setSchedulerUrl" placeholder="https://script.google.com/macros/s/.../exec">
+        </div>
+        <div style="color:var(--muted); font-size:12px;">Cada agência conecta sua própria conta Google. Veja o passo a passo em <code>README-AGENDA.md</code>. Enquanto ficar em branco, os agendamentos são salvos só no Oryon.</div>
+      </div>
+      <button class="btn-primary" id="setSaveBtn">Salvar configurações</button>
+      <span id="setSavedMsg" style="color:var(--ok); font-size:13px; margin-left:12px; display:none;">Salvo!</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Client modal -->
+<div class="modal-overlay" id="clientModal">
+  <div class="modal">
+    <button class="close-x" data-close>&times;</button>
+    <h2 id="clientModalTitle">Novo cliente</h2>
+    <div class="field"><label>Nome</label><input id="cName"></div>
+    <div class="row2">
+      <div class="field"><label>Status</label>
+        <select id="cStatus"><option value="ativo">Ativo</option><option value="pausado">Pausado</option><option value="encerrado">Encerrado</option></select>
+      </div>
+      <div class="field"><label>Desde</label><input id="cStartDate" type="date"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Segmento</label><input id="cSegmento" placeholder="Ex: Moda, Beleza..."></div>
+      <div class="field"><label>Responsável</label><input id="cResponsavel"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Contato</label><input id="cContactName" placeholder="Nome"></div>
+      <div class="field"><label>WhatsApp</label><input id="cContactPhone"></div>
+    </div>
+    <div class="field"><label>Email</label><input id="cContactEmail"></div>
+    <div class="field">
+      <label>Anotações</label>
+      <div class="notes-list" id="cNotesList"></div>
+      <div style="display:flex; gap:8px;">
+        <input id="cNoteInput" placeholder="Adicionar anotação...">
+        <button class="btn-ghost" id="cAddNoteBtn">Add</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-danger" id="cDeleteBtn" style="display:none;">Excluir</button>
+      <button class="btn-primary" id="cSaveBtn">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Contract modal -->
+<div class="modal-overlay" id="contractModal">
+  <div class="modal">
+    <button class="close-x" data-close>&times;</button>
+    <h2 id="contractModalTitle">Novo contrato</h2>
+    <div class="field"><label>Cliente</label><select id="ctClientId"></select></div>
+    <div class="row2">
+      <div class="field"><label>Valor mensal (R$)</label><input id="ctValor" type="number" step="0.01"></div>
+      <div class="field"><label>Status</label>
+        <select id="ctStatus"><option value="ativo">Ativo</option><option value="encerrado">Encerrado</option><option value="vencido">Vencido</option></select>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Início</label><input id="ctInicio" type="date"></div>
+      <div class="field"><label>Vigência até</label><input id="ctFim" type="date"></div>
+    </div>
+    <div class="checkbox-row"><input type="checkbox" id="ctRenovacao"><label>Renovação automática</label></div>
+    <div class="field"><label>Observações</label><textarea id="ctObs" rows="3"></textarea></div>
+    <div class="modal-footer">
+      <button class="btn-danger" id="ctDeleteBtn" style="display:none;">Excluir</button>
+      <button class="btn-primary" id="ctSaveBtn">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Finance modal -->
+<div class="modal-overlay" id="financeModal">
+  <div class="modal">
+    <button class="close-x" data-close>&times;</button>
+    <h2 id="financeModalTitle">Nova cobrança</h2>
+    <div class="field"><label>Descrição</label><input id="fDescricao" placeholder="Ex: Mensalidade Setembro"></div>
+    <div class="field"><label>Cliente</label><select id="fClientId"><option value="">— Sem cliente vinculado —</option></select></div>
+    <div class="row2">
+      <div class="field"><label>Valor (R$)</label><input id="fValor" type="number" step="0.01"></div>
+      <div class="field"><label>Vencimento</label><input id="fVencimento" type="date"></div>
+    </div>
+    <div class="field"><label>Status</label>
+      <select id="fStatus"><option value="pendente">Pendente</option><option value="pago">Pago</option></select>
+    </div>
+
+    <div id="fChargeBox" style="display:none; border-top:1px solid var(--border); margin-top:6px; padding-top:16px;">
+      <label style="margin-bottom:10px;">Cobrar via Pix + WhatsApp</label>
+      <div id="fChargeNoSettings" style="display:none; font-size:13px; color:var(--muted); background:var(--panel-2); border-radius:8px; padding:12px;">
+        Configure sua chave Pix em <a href="#" id="fGoToSettings" style="color:var(--orange); font-weight:700;">Configurações</a> para habilitar a cobrança automática.
+      </div>
+      <div id="fChargeNoPhone" style="display:none; font-size:13px; color:var(--muted); background:var(--panel-2); border-radius:8px; padding:12px;">
+        Cadastre um WhatsApp no cliente vinculado para enviar a cobrança direto pelo Oryon.
+      </div>
+      <div id="fChargeReady" style="display:none;">
+        <div style="display:flex; gap:14px; align-items:flex-start; margin-bottom:12px;">
+          <img id="fPixQr" style="width:120px; height:120px; border-radius:8px; background:#fff; padding:6px; flex-shrink:0;">
+          <div style="flex:1; min-width:0;">
+            <label style="margin-bottom:4px;">Pix copia e cola</label>
+            <textarea id="fPixCode" rows="3" readonly style="font-size:11px; font-family:monospace; resize:none;"></textarea>
+            <button class="btn-ghost" id="fCopyPixBtn" type="button" style="margin-top:8px; padding:6px 14px; font-size:12px;">Copiar código Pix</button>
+          </div>
+        </div>
+        <label style="margin-bottom:4px;">Mensagem no WhatsApp</label>
+        <textarea id="fWhatsMsg" rows="5" style="margin-bottom:10px;"></textarea>
+        <button class="btn-primary" id="fSendWhatsBtn" type="button" style="width:100%; text-align:center;">Enviar no WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-danger" id="fDeleteBtn" style="display:none;">Excluir</button>
+      <button class="btn-primary" id="fSaveBtn">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Prospect modal -->
+<div class="modal-overlay" id="prospectModal">
+  <div class="modal">
+    <button class="close-x" data-close>&times;</button>
+    <h2 id="prospectModalTitle">Prospect</h2>
+    <div class="field"><label>Nome / Empresa</label><input id="pName"></div>
+    <div class="row2">
+      <div class="field"><label>WhatsApp</label><input id="pPhone"></div>
+      <div class="field"><label>Email</label><input id="pEmail"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Origem</label><input id="pSource" placeholder="Indicação, Instagram..."></div>
+      <div class="field"><label>Valor estimado (R$)</label><input id="pValor" type="number" step="0.01"></div>
+    </div>
+    <div class="field"><label>Etapa</label><select id="pStage"></select></div>
+    <div class="field">
+      <label>Anotações</label>
+      <div class="notes-list" id="pNotesList"></div>
+      <div style="display:flex; gap:8px;">
+        <input id="pNoteInput" placeholder="Adicionar anotação...">
+        <button class="btn-ghost" id="pAddNoteBtn">Add</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-danger" id="pDeleteBtn" style="display:none;">Excluir</button>
+      <button class="btn-primary" id="pSaveBtn">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Event modal -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal">
+    <button class="close-x" data-close>&times;</button>
+    <h2 id="eventModalTitle">Novo agendamento</h2>
+    <div class="field"><label>Título</label><input id="eTitle" placeholder="Ex: Call de vendas — Loja X"></div>
+    <div class="row2">
+      <div class="field"><label>Data</label><input id="eDate" type="date"></div>
+      <div class="field"><label>Hora</label><input id="eTime" type="time"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Tipo</label>
+        <select id="eType"><option>Reunião</option><option>Chamada de vendas</option><option>Onboarding</option><option>Outro</option></select>
+      </div>
+      <div class="field"><label>Cliente (opcional)</label><select id="eClientId"><option value="">—</option></select></div>
+    </div>
+    <div class="field"><label>Notas</label><textarea id="eNotes" rows="3"></textarea></div>
+    <div class="checkbox-row"><input type="checkbox" id="eDone"><label>Concluído</label></div>
+    <div class="checkbox-row"><input type="checkbox" id="eInviteClient"><label>Convidar cliente por email (Google Agenda)</label></div>
+    <div id="eInviteStatus" style="font-size:12px; color:var(--muted); margin:-8px 0 14px;"></div>
+    <div class="modal-footer">
+      <button class="btn-danger" id="eDeleteBtn" style="display:none;">Excluir</button>
+      <button class="btn-primary" id="eSaveBtn">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script src="/pix.js"></script>
+<script type="module" src="/app.js"></script>
+</body>
+</html>

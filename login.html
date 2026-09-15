@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar — Oryon</title>
+<link rel="icon" href="/assets/icon.svg">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-card">
+    <a class="brand-mark" href="/">
+      <img src="/assets/logo.svg" alt="Oryon">
+      <span>ORYON</span>
+    </a>
+    <h1>Entrar na sua conta</h1>
+    <p class="sub">Acesse o workspace da sua agência.</p>
+    <div class="auth-error" id="authError"></div>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input id="email" type="email" required></div>
+      <div class="field"><label>Senha</label><input id="password" type="password" required></div>
+      <button class="btn-primary btn-block" type="submit">Entrar</button>
+    </form>
+    <div class="auth-switch">Ainda não tem conta? <a href="/signup.html">Criar conta grátis</a></div>
+  </div>
+</div>
+<script type="module">
+import { firebaseConfig } from '/firebase-config.js';
+import { mapFirebaseError } from '/firebase-errors.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js';
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+function showError(msg) {
+  const el = document.getElementById('authError');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    window.location.href = '/app.html';
+  } catch (err) {
+    showError(mapFirebaseError(err.code));
+  }
+});
+</script>
+</body>
+</html>

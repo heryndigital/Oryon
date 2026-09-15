@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oryon — Gestão 360º para agências, sem pesar no caixa</title>
+<link rel="icon" href="/assets/icon.svg">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="mkt-header">
+  <a class="brand-mark" href="/">
+    <img src="/assets/logo.svg" alt="Oryon">
+    <span>ORYON</span>
+  </a>
+  <nav>
+    <a href="#produto">Produto</a>
+    <a href="#comparativo">Comparativo</a>
+    <a href="#planos">Planos</a>
+  </nav>
+  <div class="actions">
+    <a href="/login.html" class="btn-ghost" style="display:inline-block;">Entrar</a>
+    <a href="/signup.html" class="btn-primary" style="display:inline-block;">Começar agora</a>
+  </div>
+</header>
+
+<section class="mkt-hero">
+  <div class="mkt-eyebrow">Plataforma de gestão para agências</div>
+  <h1>Sua agência sob controle total, <span class="accent">por uma fração do preço.</span></h1>
+  <p class="lead">O Oryon reúne CRM, contratos, financeiro, agendamentos e captação em um só lugar — a mesma proposta das plataformas de gestão 360º do mercado, com mensalidades acessíveis e pronto para operar em qualquer país.</p>
+  <div class="cta-row">
+    <a href="/signup.html" class="btn-primary">Criar minha conta grátis</a>
+    <a href="#planos" class="btn-ghost">Ver planos</a>
+  </div>
+
+  <div class="mkt-mock">
+    <div class="bar"><span></span><span></span><span></span></div>
+    <div class="body">
+      <div class="side">
+        <div class="item active">Dashboard</div>
+        <div class="item">Clientes</div>
+        <div class="item">Contratos</div>
+        <div class="item">Financeiro</div>
+        <div class="item">Captação &amp; CRM</div>
+        <div class="item">Agendamentos</div>
+      </div>
+      <div>
+        <div class="kpis">
+          <div class="kpi"><div class="l">Clientes ativos</div><div class="v">42</div></div>
+          <div class="kpi"><div class="l">MRR</div><div class="v accent">R$ 68.400</div></div>
+          <div class="kpi"><div class="l">Pipeline aberto</div><div class="v">17</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mkt-strip">Feito para agências que querem escalar sem pagar <b>R$497/mês</b> por um dashboard.</div>
+
+<section class="mkt-section" id="produto">
+  <div class="mkt-kicker">Produto</div>
+  <h2>Um app. Todos os módulos da sua operação.</h2>
+  <p class="sub">Nada solto em planilha, nada espalhado em cinco ferramentas diferentes.</p>
+  <div class="grid-features">
+    <div class="feature-card"><div class="ico">◆</div><h3>Gestão de Clientes</h3><p>Ficha 360° com histórico, anotações e responsável — contexto completo pra equipe agir rápido.</p></div>
+    <div class="feature-card"><div class="ico">▤</div><h3>Contratos</h3><p>Controle de vigência, renovação automática e valor mensal, sem depender de planilha paralela.</p></div>
+    <div class="feature-card"><div class="ico">◷</div><h3>Agendamentos</h3><p>Agenda centralizada por cliente e tipo de compromisso, com criação automática no Google Agenda do cliente.</p></div>
+    <div class="feature-card"><div class="ico">$</div><h3>Financeiro</h3><p>Cobrança via Pix com QR code automático e envio da mensagem direto pro WhatsApp do cliente.</p></div>
+    <div class="feature-card"><div class="ico">▥</div><h3>Captação &amp; CRM</h3><p>Pipeline visual em kanban, do primeiro contato ao fechamento — arraste e solte entre as etapas.</p></div>
+    <div class="feature-card"><div class="ico">◉</div><h3>Dashboard em tempo real</h3><p>Indicadores comerciais, operacionais e financeiros no mesmo lugar, sem exportar nada.</p></div>
+  </div>
+</section>
+
+<section class="mkt-section" id="comparativo">
+  <div class="mkt-kicker">Por que Oryon</div>
+  <h2>Os mesmos módulos, um preço que faz sentido.</h2>
+  <p class="sub">Comparado ao que agências pagam hoje nas plataformas de gestão 360º do mercado.</p>
+  <table class="compare-table">
+    <thead>
+      <tr><th>Plano de entrada</th><th>Mercado</th><th class="oryon-col">Oryon</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mensalidade inicial</td><td>~R$ 197/mês</td><td class="oryon-col check">R$ 97/mês</td></tr>
+      <tr><td>Plano intermediário</td><td>~R$ 259/mês</td><td class="oryon-col check">R$ 147/mês</td></tr>
+      <tr><td>Plano completo</td><td>~R$ 497/mês</td><td class="oryon-col check">R$ 247/mês</td></tr>
+      <tr><td>Cobrança em dólar p/ operar fora do Brasil</td><td class="cross">—</td><td class="oryon-col check">Sim</td></tr>
+      <tr><td>Isolamento de dados por workspace</td><td class="check">Sim</td><td class="oryon-col check">Sim</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="mkt-section" id="planos">
+  <div class="mkt-kicker">Planos</div>
+  <h2>Escolha o plano do tamanho da sua operação.</h2>
+  <p class="sub">Mensal, sem fidelidade. Comece hoje e faça upgrade quando quiser.</p>
+
+  <div style="display:flex; justify-content:center;">
+    <div class="currency-toggle" id="currencyToggle">
+      <button data-currency="BRL" class="active">R$ Real</button>
+      <button data-currency="USD">US$ Dólar</button>
+    </div>
+  </div>
+
+  <div class="plans-row">
+    <div class="plans-grid">
+      <div class="plan-card">
+        <h3>Starter</h3>
+        <div class="price" data-brl="R$ 97" data-usd="US$ 19">R$ 97<small>/mês</small></div>
+        <div class="desc">Captação e agenda organizadas.</div>
+        <ul>
+          <li>Clientes (ficha 360°)</li>
+          <li>Agendamentos</li>
+          <li>Captação &amp; CRM (pipeline)</li>
+          <li>1 usuário</li>
+        </ul>
+        <a href="/signup.html?plan=starter" class="btn-ghost btn-block" style="text-align:center;">Assinar Starter</a>
+      </div>
+      <div class="plan-card featured">
+        <div class="tag">Mais escolhido</div>
+        <h3>Pro</h3>
+        <div class="price" data-brl="R$ 147" data-usd="US$ 29">R$ 147<small>/mês</small></div>
+        <div class="desc">Comercial completo, contratos incluídos.</div>
+        <ul>
+          <li>Tudo do Starter</li>
+          <li>Contratos com renovação automática</li>
+          <li>Dashboards comerciais</li>
+          <li>Até 5 usuários</li>
+        </ul>
+        <a href="/signup.html?plan=pro" class="btn-primary btn-block" style="text-align:center;">Assinar Pro</a>
+      </div>
+      <div class="plan-card">
+        <h3>Full</h3>
+        <div class="price" data-brl="R$ 247" data-usd="US$ 49">R$ 247<small>/mês</small></div>
+        <div class="desc">Gestão completa da agência.</div>
+        <ul>
+          <li>Tudo do Pro</li>
+          <li>Financeiro completo (MRR, inadimplência)</li>
+          <li>Usuários ilimitados</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <a href="/signup.html?plan=full" class="btn-ghost btn-block" style="text-align:center;">Assinar Full</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mkt-cta">
+  <h2>Pronto para colocar sua agência em um só lugar?</h2>
+  <p>Crie sua conta agora. Em minutos seu workspace está pronto pra usar.</p>
+  <a href="/signup.html" class="btn-primary">Criar minha conta grátis</a>
+</div>
+
+<footer class="mkt-footer">
+  <div class="top">
+    <a class="brand-mark" href="/">
+      <img src="/assets/logo.svg" alt="Oryon">
+      <span>ORYON</span>
+    </a>
+    <div class="cols">
+      <div class="col">
+        <h4>Produto</h4>
+        <a href="#produto">Recursos</a>
+        <a href="#planos">Planos</a>
+      </div>
+      <div class="col">
+        <h4>Conta</h4>
+        <a href="/signup.html">Criar conta</a>
+        <a href="/login.html">Entrar</a>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 Oryon. Todos os direitos reservados.</span>
+    <span>Feito por dono de agência para donos de agência.</span>
+  </div>
+</footer>
+
+<script src="/landing.js"></script>
+</body>
+</html>

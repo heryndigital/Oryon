@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criar conta — Oryon</title>
+<link rel="icon" href="/assets/icon.svg">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-card">
+    <a class="brand-mark" href="/">
+      <img src="/assets/logo.svg" alt="Oryon">
+      <span>ORYON</span>
+    </a>
+    <h1>Criar workspace da agência</h1>
+    <p class="sub">Leva menos de um minuto. Sem cartão de crédito.</p>
+    <div class="auth-error" id="authError"></div>
+    <form id="signupForm">
+      <div class="field"><label>Nome da agência</label><input id="companyName" required></div>
+      <div class="field"><label>Seu nome</label><input id="name" required></div>
+      <div class="field"><label>Email</label><input id="email" type="email" required></div>
+      <div class="field"><label>Senha</label><input id="password" type="password" minlength="6" required></div>
+      <div class="field">
+        <label>País</label>
+        <select id="country">
+          <option value="BR">Brasil</option>
+          <option value="PT">Portugal</option>
+          <option value="US">Estados Unidos</option>
+          <option value="OTHER">Outro</option>
+        </select>
+      </div>
+      <button class="btn-primary btn-block" type="submit">Criar minha conta</button>
+    </form>
+    <div class="auth-switch">Já tem conta? <a href="/login.html">Entrar</a></div>
+  </div>
+</div>
+<script type="module">
+import { firebaseConfig } from '/firebase-config.js';
+import { mapFirebaseError } from '/firebase-errors.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js';
+import { getFirestore, doc, collection, setDoc } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+function showError(msg) {
+  const el = document.getElementById('authError');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const companyName = document.getElementById('companyName').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const country = document.getElementById('country').value;
+
+  if (!companyName || !name || !email || password.length < 6) {
+    showError('Preencha empresa, nome, email e uma senha com 6+ caracteres.');
+    return;
+  }
+
+  let uid = null;
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    uid = cred.user.uid;
+
+    const tenantRef = doc(collection(db, 'tenants'));
+    await setDoc(tenantRef, {
+      name: companyName,
+      country,
+      plan: 'starter',
+      ownerUid: uid,
+      createdAt: new Date().toISOString()
+    });
+
+    await setDoc(doc(db, 'users', uid), {
+      tenantId: tenantRef.id,
+      name,
+      email,
+      role: 'owner',
+      createdAt: new Date().toISOString()
+    });
+
+    await setDoc(doc(db, 'tenants', tenantRef.id, 'settings', 'config'), {
+      pixKey: '',
+      pixRecipientName: '',
+      pixCity: '',
+      whatsappTemplate: 'Oi {cliente}! Segue o Pix para pagamento de {valor}, vencimento em {vencimento}.\n\nPix copia e cola:\n{pix}\n\nQualquer dúvida é só chamar por aqui.',
+      schedulerUrl: ''
+    });
+
+    window.location.href = '/app.html';
+  } catch (err) {
+    showError(mapFirebaseError(err.code));
+  }
+});
+</script>
+</body>
+</html>
